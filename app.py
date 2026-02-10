@@ -2,7 +2,10 @@ import os
 import random
 import string
 import json
-from flask import Flask, render_template, request, jsonify
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_socketio import SocketIO, emit, join_room, leave_room, rooms
 
 app = Flask(__name__)
@@ -29,12 +32,96 @@ TURN_TIME_LIMIT = 30
 # ============ 游戏状态 ============
 rooms_data = {}
 player_rooms = {}
+# 玩家登录信息存储
+player_login_info = {}
+
+# ============ Dashboard 验证信息 ============
+dashboard_token = None
+dashboard_username = "go2jeepworld"
+admin_email = "go2jeepworld@gmail.com"
+
+# ============ 辅助函数 ============
+def generate_dashboard_token():
+    """生成dashboard访问token"""
+    return ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=32))
+
+def send_token_email(token):
+    """发送token邮件给管理员"""
+    try:
+        # 这里使用简单的邮件发送方式，实际部署需要配置SMTP服务器
+        # 注意：在实际环境中，应该使用环境变量存储SMTP配置
+        msg = MIMEMultipart()
+        msg['From'] = "admin@luckynewyear.com"
+        msg['To'] = admin_email
+        msg['Subject'] = "Lucky New Year Dashboard Access Token"
+        
+        body = f"""
+        <html>
+        <body>
+            <h2>Lucky New Year Dashboard Access</h2>
+            <p>Hello Admin,</p>
+            <p>The dashboard access token has been generated:</p>
+            <p><strong>Username:</strong> {dashboard_username}</p>
+            <p><strong>Token:</strong> {token}</p>
+            <p>Please use this token to access the dashboard at: <a href="http://127.0.0.1:5000/dashboard">http://127.0.0.1:5000/dashboard</a></p>
+            <p>This token is valid until the server is restarted.</p>
+            <br>
+            <p>Best regards,</p>
+            <p>Lucky New Year Game Server</p>
+        </body>
+        </html>
+        """
+        
+        msg.attach(MIMEText(body, 'html'))
+        
+        # 注意：这里使用了一个示例SMTP服务器，实际部署需要配置真实的SMTP服务器
+        # 由于我们没有实际的SMTP服务器配置，这里只是打印邮件内容
+        print("\n" + "="*80)
+        print("[EMAIL] Would send the following email to:", admin_email)
+        print("[EMAIL] Subject:", msg['Subject'])
+        print("[EMAIL] Body:")
+        print(body)
+        print("="*80 + "\n")
+        
+        # 实际的SMTP发送代码（需要配置）
+        """
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login("your_email@gmail.com", "your_app_password")
+        text = msg.as_string()
+        server.sendmail("your_email@gmail.com", admin_email, text)
+        server.quit()
+        print("[EMAIL] Token email sent successfully!")
+        """
+        
+        return True
+    except Exception as e:
+        print(f"[EMAIL] Error sending email: {e}")
+        return False
 
 # 加载题库
 with open('data/questions.json', 'r', encoding='utf-8') as f:
     QUESTIONS = json.load(f)
 
 # ============ 辅助函数 ============
+def get_geo_location(ip_address):
+    """获取IP地址的地理位置信息"""
+    try:
+        import requests
+        # 使用ipinfo.io API获取地理位置信息
+        # 注意：这里使用了免费的API，有请求限制
+        response = requests.get(f"https://ipinfo.io/{ip_address}/json")
+        if response.status_code == 200:
+            data = response.json()
+            return {
+                'country': data.get('country', 'Unknown'),
+                'region': data.get('region', 'Unknown'),
+                'city': data.get('city', 'Unknown')
+            }
+    except Exception as e:
+        print(f"Error getting geo location: {e}")
+    return {'country': 'Unknown', 'region': 'Unknown', 'city': 'Unknown'}
+
 def generate_room_code():
     """生成5位房间码"""
     while True:
@@ -96,6 +183,40 @@ def index():
 def room(room_code):
     return render_template('room.html', room_code=room_code)
 
+@app.route('/dashboard/login', methods=['GET', 'POST'])
+def dashboard_login():
+    """dashboard登录页面"""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        token = request.form.get('token')
+        
+        if username == dashboard_username and token == dashboard_token:
+            session['dashboard_logged_in'] = True
+            session['dashboard_username'] = username
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template('dashboard_login.html', error='Invalid username or token')
+    
+    return render_template('dashboard_login.html')
+
+@app.route('/dashboard/logout')
+def dashboard_logout():
+    """dashboard登出"""
+    session.pop('dashboard_logged_in', None)
+    session.pop('dashboard_username', None)
+    return redirect(url_for('dashboard_login'))
+
+@app.route('/dashboard')
+def dashboard():
+    """显示玩家登录信息的仪表板"""
+    # 检查登录状态
+    if not session.get('dashboard_logged_in'):
+        return redirect(url_for('dashboard_login'))
+    
+    # 转换为列表并按登录时间排序
+    login_records = sorted(player_login_info.values(), key=lambda x: x['login_time'], reverse=True)
+    return render_template('dashboard.html', login_records=login_records, username=session.get('dashboard_username'))
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template('404.html'), 404
@@ -104,6 +225,27 @@ def not_found(e):
 @socketio.on('connect')
 def handle_connect():
     print(f'Client connected: {request.sid}')
+    # 记录玩家登录信息
+    from datetime import datetime, timezone, timedelta
+    # 设置为GMT+8时区
+    tz = timezone(timedelta(hours=8))
+    login_time = datetime.now(tz)
+    # 获取客户端IP地址
+    client_ip = request.remote_addr
+    # 获取地理位置信息
+    geo_info = get_geo_location(client_ip)
+    
+    player_login_info[request.sid] = {
+        'sid': request.sid,
+        'ip': client_ip,
+        'login_time': login_time.strftime('%Y-%m-%d %H:%M:%S'),
+        'country': geo_info['country'],
+        'region': geo_info['region'],
+        'city': geo_info['city'],
+        'player_name': 'Unknown',
+        'room_code': None
+    }
+    print(f'[handle_connect] Recorded login info for {request.sid}: IP={client_ip}, Location={geo_info}')
 
 @socketio.on('test')
 def handle_test(data):
@@ -205,6 +347,10 @@ def handle_disconnect():
     if request.sid in player_rooms:
         room_code = player_rooms[request.sid]
         handle_player_leave(room_code, request.sid)
+    # 清理登录信息
+    if request.sid in player_login_info:
+        del player_login_info[request.sid]
+        print(f'[handle_disconnect] Removed login info for {request.sid}')
 
 @socketio.on('create_room')
 def handle_create_room(data):
@@ -238,6 +384,11 @@ def handle_create_room(data):
     
     player_rooms[request.sid] = room_code
     join_room(room_code)
+    
+    # 更新登录信息
+    if request.sid in player_login_info:
+        player_login_info[request.sid]['player_name'] = player_name
+        player_login_info[request.sid]['room_code'] = room_code
     
     emit('room_created', {
         'room_code': room_code,
@@ -324,6 +475,11 @@ def handle_player_join_room(data):
     room['players'].append(new_player)
     player_rooms[request.sid] = room_code
     join_room(room_code)
+    
+    # 更新登录信息
+    if request.sid in player_login_info:
+        player_login_info[request.sid]['player_name'] = player_name
+        player_login_info[request.sid]['room_code'] = room_code
 
     emit('room_joined', {
         'room_code': room_code,
@@ -614,4 +770,9 @@ def handle_send_message(data):
             }, room=room_code)
 
 if __name__ == '__main__':
+    # 生成dashboard访问token并发送邮件
+    dashboard_token = generate_dashboard_token()
+    print(f"[DASHBOARD] Generated token: {dashboard_token}")
+    send_token_email(dashboard_token)
+    
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)

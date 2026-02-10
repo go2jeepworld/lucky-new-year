@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Lucky New Year!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧧</text></svg>">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-lg);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: 700;
+            color: var(--chinese-red);
+            margin-bottom: var(--spacing-sm);
+        }
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+        .table-container {
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        .dashboard-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .dashboard-table th,
+        .dashboard-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dashboard-table th {
+            background-color: var(--background-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .dashboard-table tr:hover {
+            background-color: var(--background-tertiary);
+        }
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+        }
+        .badge-room {
+            background-color: var(--chinese-red-light);
+            color: var(--chinese-red);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="mb-lg">
+            <div class="flex justify-between items-center" style="max-width: 1200px; margin: 0 auto; padding: 0 var(--spacing-lg);">
+                <div class="logo-section">
+                    <span class="logo-icon" style="font-size: 64px;">🧧</span>
+                    <h1 class="text-red" style="margin-top: var(--spacing-md);">Lucky New Year!</h1>
+                    <p class="text-secondary" style="color: var(--text-secondary); font-size: var(--font-size-lg);">
+                        Player Dashboard
+                    </p>
+                </div>
+                <div style="text-align: right;">
+                    <p style="margin-bottom: var(--spacing-sm);">Welcome, {{ username }}</p>
+                    <a href="{{ url_for('dashboard_logout') }}" class="btn btn-outline" style="padding: var(--spacing-xs) var(--spacing-md);">
+                        <span>🚪</span> Logout
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-container">
+            <!-- Stats Overview -->
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">{{ login_records|length }}</div>
+                    <div class="stat-label">Total Players</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ login_records|selectattr('room_code', '!=', None)|list|length }}</div>
+                    <div class="stat-label">In Rooms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">{{ login_records|groupby('country')|list|length }}</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">
+                        {% if login_records %}
+                            {{ login_records[0].login_time.split(' ')[0] }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </div>
+                    <div class="stat-label">Last Activity</div>
+                </div>
+            </section>
+
+            <!-- Player Login Records -->
+            <section class="table-container">
+                <h3 style="padding: var(--spacing-lg); margin: 0; border-bottom: 1px solid var(--border-color);">
+                    📋 Player Login Records
+                </h3>
+                <div style="overflow-x: auto;">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Login Time (GMT+8)</th>
+                                <th>IP Address</th>
+                                <th>Location</th>
+                                <th>Player Name</th>
+                                <th>Room Code</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if login_records %}
+                                {% for record in login_records %}
+                                    <tr>
+                                        <td>{{ record.login_time }}</td>
+                                        <td>{{ record.ip }}</td>
+                                        <td>
+                                            {{ record.country }} / {{ record.region }} / {{ record.city }}
+                                        </td>
+                                        <td>{{ record.player_name }}</td>
+                                        <td>
+                                            {% if record.room_code %}
+                                                <span class="badge badge-room">{{ record.room_code }}</span>
+                                            {% else %}
+                                                <span style="color: var(--text-secondary);">N/A</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" style="text-align: center; padding: var(--spacing-xl); color: var(--text-secondary);">
+                                        No login records yet
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Back to Home -->
+            <section class="text-center mt-lg">
+                <a href="{{ url_for('index') }}" class="btn btn-primary">
+                    <span>🏠</span> Back to Home
+                </a>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-lg" style="padding: var(--spacing-lg); color: var(--text-secondary); font-size: var(--font-size-lg);">
+            <p>🎊 Where Culture Meets Play 🎊</p>
+            <p style="margin-top: var(--spacing-sm);">2-12 Players • Learn Chinese Culture • Have Fun!</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</body>
+</html>

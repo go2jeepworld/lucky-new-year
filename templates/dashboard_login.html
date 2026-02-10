@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Login - Lucky New Year!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧧</text></svg>">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: var(--spacing-2xl);
+        }
+        .login-card {
+            background: white;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-2xl);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+        }
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .form-group input {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-md);
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--chinese-red);
+            box-shadow: 0 0 0 2px var(--chinese-red-light);
+        }
+        .error-message {
+            background-color: var(--error-light);
+            color: var(--error);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+        .btn-login {
+            width: 100%;
+            padding: var(--spacing-md);
+            font-size: var(--font-size-md);
+            font-weight: 600;
+        }
+        .back-link {
+            text-align: center;
+            margin-top: var(--spacing-lg);
+        }
+        .back-link a {
+            color: var(--chinese-red);
+            text-decoration: none;
+        }
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="text-center mb-lg">
+            <div class="logo-section">
+                <span class="logo-icon" style="font-size: 64px;">🧧</span>
+                <h1 class="text-red" style="margin-top: var(--spacing-md);">Lucky New Year!</h1>
+                <p class="text-secondary" style="color: var(--text-secondary); font-size: var(--font-size-lg);">
+                    Dashboard Access
+                </p>
+            </div>
+        </header>
+
+        <!-- Login Form -->
+        <main class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="login-icon">🔐</div>
+                    <h3>Admin Login</h3>
+                    <p style="color: var(--text-secondary);">Please enter your credentials to access the dashboard</p>
+                </div>
+
+                {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('dashboard_login') }}">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" value="go2jeepworld" readonly required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="token">Access Token</label>
+                        <input type="text" id="token" name="token" placeholder="Enter the token from your email" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-login">
+                        <span>🚪</span> Access Dashboard
+                    </button>
+                </form>
+
+                <div class="back-link">
+                    <a href="{{ url_for('index') }}">← Back to Game</a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-lg" style="padding: var(--spacing-lg); color: var(--text-secondary); font-size: var(--font-size-lg);">
+            <p>🎊 Where Culture Meets Play 🎊</p>
+            <p style="margin-top: var(--spacing-sm);">2-12 Players • Learn Chinese Culture • Have Fun!</p>
+        </footer>
+    </div>
+</body>
+</html>
