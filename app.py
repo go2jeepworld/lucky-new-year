@@ -74,25 +74,36 @@ def send_token_email(token):
         
         msg.attach(MIMEText(body, 'html'))
         
-        # 注意：这里使用了一个示例SMTP服务器，实际部署需要配置真实的SMTP服务器
-        # 由于我们没有实际的SMTP服务器配置，这里只是打印邮件内容
+        # 尝试使用环境变量中的SMTP配置
+        smtp_server = os.environ.get('SMTP_SERVER')
+        smtp_port = os.environ.get('SMTP_PORT')
+        smtp_user = os.environ.get('SMTP_USER')
+        smtp_password = os.environ.get('SMTP_PASSWORD')
+        
+        if smtp_server and smtp_port and smtp_user and smtp_password:
+            # 使用配置的SMTP服务器发送邮件
+            try:
+                server = smtplib.SMTP(smtp_server, int(smtp_port))
+                server.starttls()
+                server.login(smtp_user, smtp_password)
+                text = msg.as_string()
+                server.sendmail(smtp_user, admin_email, text)
+                server.quit()
+                print("[EMAIL] Token email sent successfully!")
+                return True
+            except Exception as smtp_error:
+                print(f"[EMAIL] SMTP error: {smtp_error}")
+                # 如果SMTP发送失败，回退到打印模式
+        
+        # 如果没有配置SMTP服务器，打印邮件内容
         print("\n" + "="*80)
         print("[EMAIL] Would send the following email to:", admin_email)
         print("[EMAIL] Subject:", msg['Subject'])
         print("[EMAIL] Body:")
         print(body)
+        print("[EMAIL] Note: No SMTP server configured. Please set environment variables:")
+        print("[EMAIL] SMTP_SERVER, SMTP_PORT, SMTP_USER, SMTP_PASSWORD")
         print("="*80 + "\n")
-        
-        # 实际的SMTP发送代码（需要配置）
-        """
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login("your_email@gmail.com", "your_app_password")
-        text = msg.as_string()
-        server.sendmail("your_email@gmail.com", admin_email, text)
-        server.quit()
-        print("[EMAIL] Token email sent successfully!")
-        """
         
         return True
     except Exception as e:
