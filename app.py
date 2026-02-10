@@ -245,8 +245,10 @@ def handle_connect():
     # 设置为GMT+8时区
     tz = timezone(timedelta(hours=8))
     login_time = datetime.now(tz)
-    # 获取客户端IP地址
-    client_ip = request.remote_addr
+    # 获取客户端IP地址（考虑反向代理）
+    client_ip = request.headers.get('X-Forwarded-For', '').split(',')[0].strip() or \
+                request.headers.get('X-Real-IP', '') or \
+                request.remote_addr
     # 获取地理位置信息
     geo_info = get_geo_location(client_ip)
     
