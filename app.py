@@ -36,7 +36,6 @@ player_rooms = {}
 player_login_info = {}
 
 # ============ Dashboard 验证信息 ============
-dashboard_token = None
 dashboard_username = "go2jeepworld"
 admin_email = "go2jeepworld@gmail.com"
 
@@ -109,6 +108,11 @@ def send_token_email(token):
     except Exception as e:
         print(f"[EMAIL] Error sending email: {e}")
         return False
+
+# 生成dashboard访问token并发送邮件
+dashboard_token = generate_dashboard_token()
+print(f"[DASHBOARD] Generated token: {dashboard_token}")
+send_token_email(dashboard_token)
 
 # 加载题库
 with open('data/questions.json', 'r', encoding='utf-8') as f:
@@ -781,9 +785,4 @@ def handle_send_message(data):
             }, room=room_code)
 
 if __name__ == '__main__':
-    # 生成dashboard访问token并发送邮件
-    dashboard_token = generate_dashboard_token()
-    print(f"[DASHBOARD] Generated token: {dashboard_token}")
-    send_token_email(dashboard_token)
-    
     socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
