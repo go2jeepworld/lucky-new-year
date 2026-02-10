@@ -35,6 +35,9 @@ player_rooms = {}
 # 玩家登录信息存储
 player_login_info = {}
 
+# ============ 持久化存储 ============
+login_history_file = 'data/login_history.json'
+
 # ============ Dashboard 验证信息 ============
 dashboard_username = "go2jeepworld"
 admin_email = "go2jeepworld@gmail.com"
@@ -43,6 +46,24 @@ admin_email = "go2jeepworld@gmail.com"
 def generate_dashboard_token():
     """生成dashboard访问token"""
     return ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=32))
+
+def load_login_history():
+    """加载历史登录记录"""
+    try:
+        with open(login_history_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"[PERSISTENCE] Error loading login history: {e}")
+        return []
+
+def save_login_history(history):
+    """保存历史登录记录"""
+    try:
+        with open(login_history_file, 'w', encoding='utf-8') as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+        print(f"[PERSISTENCE] Saved {len(history)} login records")
+    except Exception as e:
+        print(f"[PERSISTENCE] Error saving login history: {e}")
 
 def send_token_email(token):
     """发送token邮件给管理员"""
@@ -113,6 +134,10 @@ def send_token_email(token):
 dashboard_token = generate_dashboard_token()
 print(f"[DASHBOARD] Generated token: {dashboard_token}")
 send_token_email(dashboard_token)
+
+# 加载历史登录记录
+login_history = load_login_history()
+print(f"[PERSISTENCE] Loaded {len(login_history)} historical login records")
 
 # 加载题库
 with open('data/questions.json', 'r', encoding='utf-8') as f:
@@ -228,8 +253,27 @@ def dashboard():
     if not session.get('dashboard_logged_in'):
         return redirect(url_for('dashboard_login'))
     
-    # 转换为列表并按登录时间排序
-    login_records = sorted(player_login_info.values(), key=lambda x: x['login_time'], reverse=True)
+    # 合并当前登录和历史记录，按登录时间排序
+    all_records = []
+    
+    # 添加当前登录的玩家（可能还没有登出时间）
+    for record in player_login_info.values():
+        all_records.append(record)
+    
+    # 添加历史记录（已登出的玩家）
+    for record in login_history:
+        if record['sid'] not in player_login_info:
+            all_records.append(record)
+    
+    # 去重并按登录时间排序
+    unique_records = []
+    seen_sids = set()
+    for record in all_records:
+        if record['sid'] not in seen_sids:
+            seen_sids.add(record['sid'])
+            unique_records.append(record)
+    
+    login_records = sorted(unique_records, key=lambda x: x['login_time'], reverse=True)
     return render_template('dashboard.html', login_records=login_records, username=session.get('dashboard_username'))
 
 @app.errorhandler(404)
@@ -252,7 +296,8 @@ def handle_connect():
     # 获取地理位置信息
     geo_info = get_geo_location(client_ip)
     
-    player_login_info[request.sid] = {
+    # 创建登录记录
+    login_record = {
         'sid': request.sid,
         'ip': client_ip,
         'login_time': login_time.strftime('%Y-%m-%d %H:%M:%S'),
@@ -260,8 +305,15 @@ def handle_connect():
         'region': geo_info['region'],
         'city': geo_info['city'],
         'player_name': 'Unknown',
-        'room_code': None
+        'room_code': None,
+        'logout_time': None
     }
+    
+    # 存储到内存和历史记录
+    player_login_info[request.sid] = login_record
+    login_history.append(login_record)
+    save_login_history(login_history)
+    
     print(f'[handle_connect] Recorded login info for {request.sid}: IP={client_ip}, Location={geo_info}')
 
 @socketio.on('test')
@@ -364,10 +416,22 @@ def handle_disconnect():
     if request.sid in player_rooms:
         room_code = player_rooms[request.sid]
         handle_player_leave(room_code, request.sid)
-    # 清理登录信息
+    # 清理内存中的登录信息，但保留在历史记录中
     if request.sid in player_login_info:
+        # 更新历史记录中的登出时间
+        from datetime import datetime, timezone, timedelta
+        tz = timezone(timedelta(hours=8))
+        logout_time = datetime.now(tz)
+        
+        # 找到对应的历史记录并更新
+        for record in login_history:
+            if record['sid'] == request.sid and record['logout_time'] is None:
+                record['logout_time'] = logout_time.strftime('%Y-%m-%d %H:%M:%S')
+                break
+        
+        save_login_history(login_history)
         del player_login_info[request.sid]
-        print(f'[handle_disconnect] Removed login info for {request.sid}')
+        print(f'[handle_disconnect] Removed login info from memory for {request.sid}')
 
 @socketio.on('create_room')
 def handle_create_room(data):

@@ -131,6 +131,7 @@
                         <thead>
                             <tr>
                                 <th>Login Time (GMT+8)</th>
+                                <th>Logout Time (GMT+8)</th>
                                 <th>IP Address</th>
                                 <th>Location</th>
                                 <th>Player Name</th>
@@ -142,6 +143,13 @@
                                 {% for record in login_records %}
                                     <tr>
                                         <td>{{ record.login_time }}</td>
+                                        <td>
+                                            {% if record.logout_time %}
+                                                {{ record.logout_time }}
+                                            {% else %}
+                                                <span style="color: var(--chinese-red);">Online</span>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ record.ip }}</td>
                                         <td>
                                             {{ record.country }} / {{ record.region }} / {{ record.city }}
@@ -158,7 +166,7 @@
                                 {% endfor %}
                             {% else %}
                                 <tr>
-                                    <td colspan="5" style="text-align: center; padding: var(--spacing-xl); color: var(--text-secondary);">
+                                    <td colspan="6" style="text-align: center; padding: var(--spacing-xl); color: var(--text-secondary);">
                                         No login records yet
                                     </td>
                                 </tr>
