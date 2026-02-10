@@ -1,0 +1,682 @@
+[
+  {
+    "q": "Why do people eat dumplings on Chinese New Year?",
+    "a": [
+      "They symbolize wealth because they look like ancient gold ingots",
+      "They are easy to cook",
+      "They were invented by Confucius"
+    ],
+    "ans": 0,
+    "note": "Dumplings resemble ancient Chinese gold ingots (yuanbao), symbolizing wealth and prosperity!"
+  },
+  {
+    "q": "What does the color red represent during Chinese New Year?",
+    "a": [
+      "Sadness and mourning",
+      "Good luck and happiness",
+      "Royal power and authority"
+    ],
+    "ans": 1,
+    "note": "Red is the most auspicious color in Chinese culture, representing good luck, happiness, and prosperity!"
+  },
+  {
+    "q": "What is typically inside a red envelope (hongbao)?",
+    "a": [
+      "Chocolate coins",
+      "Money",
+      "Love letters"
+    ],
+    "ans": 1,
+    "note": "Red envelopes contain money and are given to children and unmarried adults as blessings for the new year!"
+  },
+  {
+    "q": "Which animal is NOT part of the Chinese zodiac?",
+    "a": [
+      "Dragon",
+      "Panda",
+      "Rabbit"
+    ],
+    "ans": 1,
+    "note": "The Chinese zodiac consists of 12 animals: Rat, Ox, Tiger, Rabbit, Dragon, Snake, Horse, Goat, Monkey, Rooster, Dog, and Pig."
+  },
+  {
+    "q": "What is the Lantern Festival celebrated on?",
+    "a": [
+      "The 1st day of the first lunar month",
+      "The 15th day of the first lunar month",
+      "The last day of the first lunar month"
+    ],
+    "ans": 1,
+    "note": "The Lantern Festival marks the end of Chinese New Year celebrations on the 15th day of the first lunar month!"
+  },
+  {
+    "q": "Why do people set off fireworks during Chinese New Year?",
+    "a": [
+      "To scare away the monster Nian",
+      "To celebrate the invention of gunpowder",
+      "To call for rain"
+    ],
+    "ans": 0,
+    "note": "According to legend, the monster Nian was scared away by loud noises and the color red!"
+  },
+  {
+    "q": "What do oranges and tangerines symbolize during Chinese New Year?",
+    "a": [
+      "Good health",
+      "Good luck and wealth",
+      "Long life"
+    ],
+    "ans": 1,
+    "note": "The Chinese words for orange (橙) and tangerine (桔) sound similar to words for 'success' and 'luck'!"
+  },
+  {
+    "q": "Which direction do people traditionally face when eating reunion dinner?",
+    "a": [
+      "North",
+      "South",
+      "Direction doesn't matter"
+    ],
+    "ans": 2,
+    "note": "While seating arrangements may vary by family tradition, there's no strict directional requirement for reunion dinner!"
+  },
+  {
+    "q": "What should you NOT do on Chinese New Year's Day?",
+    "a": [
+      "Eat fish",
+      "Sweep the floor",
+      "Wear new clothes"
+    ],
+    "ans": 1,
+    "note": "Sweeping on New Year's Day is believed to sweep away good luck and fortune!"
+  },
+  {
+    "q": "What does the dragon symbolize in Chinese culture?",
+    "a": [
+      "Evil and destruction",
+      "Power, strength, and good luck",
+      "Wisdom and scholarship"
+    ],
+    "ans": 1,
+    "note": "The dragon is the most powerful symbol in Chinese culture, representing imperial power, strength, and good fortune!"
+  },
+  {
+    "q": "How long does the Chinese New Year celebration traditionally last?",
+    "a": [
+      "One day",
+      "Seven days",
+      "Fifteen days"
+    ],
+    "ans": 2,
+    "note": "Chinese New Year celebrations traditionally last 15 days, from New Year's Eve to the Lantern Festival!"
+  },
+  {
+    "q": "What is the most important meal during Chinese New Year?",
+    "a": [
+      "Breakfast on New Year's Day",
+      "Reunion dinner on New Year's Eve",
+      "Lunch on the third day"
+    ],
+    "ans": 1,
+    "note": "The reunion dinner on New Year's Eve is the most important meal, bringing family together from near and far!"
+  },
+  {
+    "q": "What do people traditionally eat for longevity?",
+    "a": [
+      "Long noodles",
+      "Round dumplings",
+      "Square tofu"
+    ],
+    "ans": 0,
+    "note": "Long noodles symbolize long life and should never be cut when eating!"
+  },
+  {
+    "q": "Which number is considered lucky in Chinese culture?",
+    "a": [
+      "4",
+      "8",
+      "13"
+    ],
+    "ans": 1,
+    "note": "The number 8 (八) sounds like 'fa' (发), meaning wealth and prosperity!"
+  },
+  {
+    "q": "What is the Chinese zodiac animal for 2024?",
+    "a": [
+      "Rabbit",
+      "Dragon",
+      "Snake"
+    ],
+    "ans": 1,
+    "note": "2024 is the Year of the Dragon, considered the most auspicious zodiac animal!"
+  },
+  {
+    "q": "What do families traditionally do together on New Year's Eve?",
+    "a": [
+      "Watch the Spring Festival Gala on TV",
+      "Go to the movies",
+      "Play video games"
+    ],
+    "ans": 0,
+    "note": "The CCTV Spring Festival Gala has been a beloved tradition since 1983!"
+  },
+  {
+    "q": "What does fish symbolize during Chinese New Year?",
+    "a": [
+      "Surplus and abundance",
+      "Swimming skills",
+      "Water safety"
+    ],
+    "ans": 0,
+    "note": "The word for fish (鱼) sounds like 'surplus' (余), symbolizing abundance in the coming year!"
+  },
+  {
+    "q": "What should you say when giving red envelopes?",
+    "a": [
+      "Gong Xi Fa Cai (Wishing you prosperity)",
+      "Zai Jian (Goodbye)",
+      "Dui Bu Qi (Sorry)"
+    ],
+    "ans": 0,
+    "note": "Gong Xi Fa Cai is the traditional greeting for wishing prosperity in the new year!"
+  },
+  {
+    "q": "What is the significance of the Great Wall of China?",
+    "a": [
+      "It was built to keep out invaders",
+      "It was a giant shopping mall",
+      "It was a racing track"
+    ],
+    "ans": 0,
+    "note": "The Great Wall was built over centuries to protect China from northern invasions!"
+  },
+  {
+    "q": "What do pandas mainly eat?",
+    "a": [
+      "Meat and fish",
+      "Bamboo",
+      "Rice and noodles"
+    ],
+    "ans": 1,
+    "note": "Giant pandas eat almost exclusively bamboo, consuming 26-84 pounds per day!"
+  },
+  {
+    "q": "What is Beijing Roast Duck (Peking Duck) famous for?",
+    "a": [
+      "Its crispy skin and tender meat",
+      "Its spicy flavor",
+      "Its sweet taste"
+    ],
+    "ans": 0,
+    "note": "Beijing Roast Duck is renowned for its crispy skin, tender meat, and is traditionally served with pancakes, scallions, and sweet bean sauce!"
+  },
+  {
+    "q": "What does the phoenix symbolize in Chinese culture?",
+    "a": [
+      "Death and destruction",
+      "Rebirth and prosperity",
+      "War and conflict"
+    ],
+    "ans": 1,
+    "note": "The phoenix (fenghuang) symbolizes high virtue, grace, and the union of yin and yang!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year decoration made of red paper?",
+    "a": [
+      "Chunlian (Spring Couplets)",
+      "Paper airplanes",
+      "Origami cranes"
+    ],
+    "ans": 0,
+    "note": "Chunlian are red paper scrolls with poetic verses posted on doors for good fortune!"
+  },
+  {
+    "q": "Which city hosts the famous Chinese New Year parade with dragon dances?",
+    "a": [
+      "Beijing",
+      "Hong Kong",
+      "All major cities"
+    ],
+    "ans": 2,
+    "note": "Dragon dances are performed in cities across China and Chinese communities worldwide!"
+  },
+  {
+    "q": "What is the significance of the number 9 in Chinese culture?",
+    "a": [
+      "It sounds like 'long lasting'",
+      "It's unlucky",
+      "It represents sadness"
+    ],
+    "ans": 0,
+    "note": "The number 9 (九) sounds like 'jiu' (久), meaning long-lasting and eternity!"
+  },
+  {
+    "q": "What do people hang on doors during Chinese New Year for protection?",
+    "a": [
+      "Pictures of door gods",
+      "Mirrors",
+      "Bells"
+    ],
+    "ans": 0,
+    "note": "Door gods (menshen) are posted on doors to protect the household from evil spirits!"
+  },
+  {
+    "q": "What is the traditional Chinese calendar based on?",
+    "a": [
+      "Solar cycles only",
+      "Lunar cycles",
+      "Weekly cycles"
+    ],
+    "ans": 1,
+    "note": "The traditional Chinese calendar is lunisolar, based on both moon phases and solar year!"
+  },
+  {
+    "q": "What does the lotus flower symbolize in Chinese culture?",
+    "a": [
+      "Purity and perfection",
+      "Wealth and power",
+      "Speed and agility"
+    ],
+    "ans": 0,
+    "note": "The lotus rises pure from muddy waters, symbolizing purity, enlightenment, and rebirth!"
+  },
+  {
+    "q": "What is the significance of giving mandarin oranges?",
+    "a": [
+      "They are cheap",
+      "Their name sounds like 'gold'",
+      "They taste the best"
+    ],
+    "ans": 1,
+    "note": "The Cantonese word for mandarin (kam) sounds like 'gold', symbolizing wealth!"
+  },
+  {
+    "q": "What should you avoid saying during Chinese New Year?",
+    "a": [
+      "Words about death or bad luck",
+      "Words about food",
+      "Words about family"
+    ],
+    "ans": 0,
+    "note": "Negative words about death, illness, or bad luck are avoided to ensure a prosperous new year!"
+  },
+  {
+    "q": "What is the significance of the Chinese character 'Fu' (福)?",
+    "a": [
+      "It means good fortune and happiness",
+      "It means sadness",
+      "It means travel"
+    ],
+    "ans": 0,
+    "note": "Fu (福) represents good fortune, happiness, and luck, often displayed upside down to mean 'fortune arrives'!"
+  },
+  {
+    "q": "What do the twelve animals of the Chinese zodiac represent?",
+    "a": [
+      "Different years in a 12-year cycle",
+      "Different months",
+      "Different days"
+    ],
+    "ans": 0,
+    "note": "Each animal represents one year in a repeating 12-year cycle, with each animal having distinct characteristics!"
+  },
+  {
+    "q": "What is the traditional Chinese art of paper cutting called?",
+    "a": [
+      "Jianzhi",
+      "Origami",
+      "Kirigami"
+    ],
+    "ans": 0,
+    "note": "Jianzhi is a traditional Chinese paper cutting art, often used for decoration during festivals!"
+  },
+  {
+    "q": "What does the color gold represent in Chinese culture?",
+    "a": [
+      "Wealth and prosperity",
+      "Sadness",
+      "Winter"
+    ],
+    "ans": 0,
+    "note": "Gold represents wealth, prosperity, and good fortune, often paired with red during celebrations!"
+  },
+  {
+    "q": "What is the significance of the Mid-Autumn Festival?",
+    "a": [
+      "Family reunion and moon worship",
+      "Dragon boat racing",
+      "Ancestor worship only"
+    ],
+    "ans": 0,
+    "note": "The Mid-Autumn Festival celebrates family reunion and the full moon, featuring mooncakes!"
+  },
+  {
+    "q": "What is the traditional food eaten during the Dragon Boat Festival?",
+    "a": [
+      "Dumplings",
+      "Zongzi (sticky rice dumplings)",
+      "Mooncakes"
+    ],
+    "ans": 1,
+    "note": "Zongzi are sticky rice dumplings wrapped in bamboo leaves, traditionally eaten during the Dragon Boat Festival!"
+  },
+  {
+    "q": "What is the Chinese New Year also known as?",
+    "a": [
+      "Spring Festival",
+      "Autumn Festival",
+      "Winter Solstice"
+    ],
+    "ans": 0,
+    "note": "Chinese New Year is also called the Spring Festival (Chun Jie) as it marks the beginning of spring in the lunar calendar!"
+  },
+  {
+    "q": "What is the significance of the color gold in Chinese New Year celebrations?",
+    "a": [
+      "It represents purity",
+      "It symbolizes wealth and prosperity",
+      "It represents sadness"
+    ],
+    "ans": 1,
+    "note": "Gold symbolizes wealth, prosperity, and good fortune, often paired with red during Chinese New Year celebrations!"
+  },
+  {
+    "q": "What do people traditionally do on the 15th day of the first lunar month?",
+    "a": [
+      "Celebrate the Lantern Festival",
+      "Clean the house",
+      "Visit graves"
+    ],
+    "ans": 0,
+    "note": "The 15th day of the first lunar month is the Lantern Festival, marking the end of Chinese New Year celebrations!"
+  },
+  {
+    "q": "What is the Terracotta Army (Bingmayong) known for?",
+    "a": [
+      "Being a collection of terracotta sculptures depicting the armies of Qin Shi Huang",
+      "Being a famous Chinese painting",
+      "Being a traditional Chinese dance"
+    ],
+    "ans": 0,
+    "note": "The Terracotta Army is a collection of terracotta sculptures depicting the armies of Qin Shi Huang, the first Emperor of China, discovered in 1974!"
+  },
+  {
+    "q": "What is the significance of the peach blossom in Chinese culture?",
+    "a": [
+      "It symbolizes longevity",
+      "It represents love and romance",
+      "It symbolizes death"
+    ],
+    "ans": 1,
+    "note": "Peach blossoms symbolize love, romance, and good fortune in relationships, often associated with spring!"
+  },
+  {
+    "q": "What do people traditionally write on red paper during Chinese New Year?",
+    "a": [
+      "Spring couplets with auspicious phrases",
+      "Shopping lists",
+      "Letters to friends"
+    ],
+    "ans": 0,
+    "note": "Spring couplets (Chunlian) are red paper scrolls with poetic verses expressing wishes for good fortune and happiness!"
+  },
+  {
+    "q": "What is the Chinese zodiac animal for 2025?",
+    "a": [
+      "Dragon",
+      "Snake",
+      "Horse"
+    ],
+    "ans": 1,
+    "note": "2025 is the Year of the Snake in the Chinese zodiac!"
+  },
+  {
+    "q": "What is the significance of the number 6 in Chinese culture?",
+    "a": [
+      "It sounds like 'smooth' or 'flowing'",
+      "It's unlucky",
+      "It represents darkness"
+    ],
+    "ans": 0,
+    "note": "The number 6 (六) sounds like 'liu' (流), meaning smooth or flowing, symbolizing good fortune!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year dish that symbolizes family unity?",
+    "a": [
+      "Fish",
+      "Dumplings",
+      "Tofu"
+    ],
+    "ans": 1,
+    "note": "Dumplings are made by the whole family together, symbolizing family unity and togetherness!"
+  },
+  {
+    "q": "What is the significance of the firecracker in Chinese New Year celebrations?",
+    "a": [
+      "To scare away evil spirits",
+      "To celebrate the harvest",
+      "To welcome guests"
+    ],
+    "ans": 0,
+    "note": "Firecrackers are set off to scare away evil spirits and bad luck, bringing in good fortune for the new year!"
+  },
+  {
+    "q": "What is the traditional Chinese art of flower arrangement called?",
+    "a": [
+      "Ikebana",
+      "Hua xue",
+      "Zen gardening"
+    ],
+    "ans": 1,
+    "note": "Hua xue is the traditional Chinese art of flower arrangement, emphasizing harmony with nature!"
+  },
+  {
+    "q": "What is the significance of the Chinese character 'Xi' (喜)?",
+    "a": [
+      "It means happiness and joy",
+      "It means sadness",
+      "It means wealth"
+    ],
+    "ans": 0,
+    "note": "Xi (喜) represents happiness, joy, and good fortune, often seen at weddings and festivals!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year activity where people visit relatives and friends?",
+    "a": [
+      "Spring cleaning",
+      "New Year visits (Bai Nian)",
+      "Firework display"
+    ],
+    "ans": 1,
+    "note": "Bai Nian is the tradition of visiting relatives and friends during Chinese New Year to exchange greetings and good wishes!"
+  },
+  {
+    "q": "What is the significance of the lotus seed in Chinese culture?",
+    "a": [
+      "It symbolizes many children",
+      "It represents poverty",
+      "It symbolizes bad luck"
+    ],
+    "ans": 0,
+    "note": "Lotus seeds symbolize fertility and the wish for many children, often used in traditional Chinese desserts!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year candy made from glutinous rice?",
+    "a": [
+      "Tangyuan (glutinous rice balls)",
+      "Chocolate",
+      "Candy canes"
+    ],
+    "ans": 0,
+    "note": "Tangyuan are sweet glutinous rice balls often eaten during the Lantern Festival, symbolizing family reunion!"
+  },
+  {
+    "q": "What is the significance of the pine tree in Chinese culture?",
+    "a": [
+      "It symbolizes longevity and resilience",
+      "It represents death",
+      "It symbolizes bad luck"
+    ],
+    "ans": 0,
+    "note": "Pine trees symbolize longevity, resilience, and strength, as they stay green throughout the winter!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year decoration that is a red paper lantern?",
+    "a": [
+      "Red envelope",
+      "Lantern (Deng long)",
+      "Spring couplet"
+    ],
+    "ans": 1,
+    "note": "Lanterns (Deng long) are traditional Chinese New Year decorations that symbolize brightness and hope for the future!"
+  },
+  {
+    "q": "What is the Chinese zodiac animal for 2026?",
+    "a": [
+      "Snake",
+      "Horse",
+      "Sheep"
+    ],
+    "ans": 1,
+    "note": "2026 is the Year of the Horse in the Chinese zodiac!"
+  },
+  {
+    "q": "What is the significance of the number 10 in Chinese culture?",
+    "a": [
+      "It represents perfection and completion",
+      "It's unlucky",
+      "It symbolizes chaos"
+    ],
+    "ans": 0,
+    "note": "The number 10 (十) represents perfection and completion, as it's the base of the decimal system!"
+  },
+  {
+    "q": "What is the traditional Chinese New Year activity where people set off fireworks?",
+    "a": [
+      "Spring cleaning",
+      "Firework display (Fang hua)",
+      "New Year's Eve dinner"
+    ],
+    "ans": 1,
+    "note": "Fang hua (setting off fireworks) is a traditional Chinese New Year activity to scare away evil spirits and celebrate the new year!"
+  },
+  {
+    "q": "What is Biangbiang noodles (Biangbiangmian) famous for?",
+    "a": [
+      "Its wide, hand-pulled noodles and spicy flavor",
+      "Its sweet taste",
+      "Its cold serving temperature"
+    ],
+    "ans": 0,
+    "note": "Biangbiang noodles are famous for their wide, hand-pulled noodles and spicy, savory flavor, originating from Shaanxi province!"
+  },
+  {
+    "q": "What is Black Myth: Wukong known for?",
+    "a": [
+      "Being a popular Chinese action RPG game based on Journey to the West",
+      "Being a traditional Chinese festival",
+      "Being a Chinese musical instrument"
+    ],
+    "ans": 0,
+    "note": "Black Myth: Wukong is a popular Chinese action RPG game released in 2024, based on the classic novel Journey to the West, featuring Sun Wukong!"
+  },
+  {
+    "q": "What is Ne Zha 2 (Ne Zha 2: The Movie) about?",
+    "a": [
+      "Being a Chinese animated film sequel about the mythological figure Ne Zha",
+      "Being a traditional Chinese dance performance",
+      "Being a Chinese cooking show"
+    ],
+    "ans": 0,
+    "note": "Ne Zha 2 is a Chinese animated film sequel released in 2025, continuing the story of the mythological figure Ne Zha from Chinese mythology!"
+  },
+  {
+    "q": "What is the Forbidden City (Gugong) known for?",
+    "a": [
+      "Being the former imperial palace complex during the Ming and Qing dynasties",
+      "Being a modern shopping mall",
+      "Being a traditional Chinese restaurant"
+    ],
+    "ans": 0,
+    "note": "The Forbidden City was the imperial palace for 24 emperors during the Ming and Qing dynasties, now housing the Palace Museum with over 1 million artifacts!"
+  },
+  {
+    "q": "What is the most popular type of tea in China?",
+    "a": [
+      "Green tea",
+      "Black tea",
+      "Herbal tea"
+    ],
+    "ans": 0,
+    "note": "Green tea is the most popular type of tea in China, with famous varieties like Longjing (Dragon Well) and Biluochun!"
+  },
+  {
+    "q": "What is China famous for in modern transportation?",
+    "a": [
+      "Having the world's longest high-speed rail network",
+      "Having the most bicycles",
+      "Having the most airplanes"
+    ],
+    "ans": 0,
+    "note": "China has the world's longest high-speed rail network, spanning over 40,000 kilometers and connecting major cities across the country!"
+  },
+  {
+    "q": "What is the most popular mobile payment method in China?",
+    "a": [
+      "WeChat Pay and Alipay",
+      "Credit cards",
+      "Cash only"
+    ],
+    "ans": 0,
+    "note": "WeChat Pay and Alipay are the dominant mobile payment methods in China, used for everything from street food to luxury shopping!"
+  },
+  {
+    "q": "What is the traditional Chinese art of writing characters called?",
+    "a": [
+      "Calligraphy (Shufa)",
+      "Painting",
+      "Sculpting"
+    ],
+    "ans": 0,
+    "note": "Chinese calligraphy (Shufa) is a revered art form using brush and ink, with styles including Kaishu, Xingshu, and Caoshu!"
+  },
+  {
+    "q": "What is Jingdezhen famous for?",
+    "a": [
+      "Being the porcelain capital of China",
+      "Being the silk capital",
+      "Being the tea capital"
+    ],
+    "ans": 0,
+    "note": "Jingdezhen has been producing fine porcelain for over 1,700 years, famous for blue and white porcelain and exquisite craftsmanship!"
+  },
+  {
+    "q": "What is the most popular food delivery platform in China?",
+    "a": [
+      "Meituan and Ele.me",
+      "Uber Eats",
+      "DoorDash"
+    ],
+    "ans": 0,
+    "note": "Meituan and Ele.me are the leading food delivery platforms in China, delivering millions of meals daily with incredible speed!"
+  },
+  {
+    "q": "What is China known for in the electric vehicle industry?",
+    "a": [
+      "Being the world's largest market and producer of electric vehicles",
+      "Being the smallest market",
+      "Being the only country with gasoline cars"
+    ],
+    "ans": 0,
+    "note": "China is the world's largest market and producer of electric vehicles, with brands like BYD, NIO, and XPeng leading the industry!"
+  },
+  {
+    "q": "What is acupuncture (Zhenjiu) used for in traditional Chinese medicine?",
+    "a": [
+      "Treating various health conditions by inserting thin needles into specific points",
+      "Cooking traditional food",
+      "Practicing martial arts"
+    ],
+    "ans": 0,
+    "note": "Acupuncture is a key component of traditional Chinese medicine, used to treat pain, stress, and various health conditions for over 2,000 years!"
+  }
+]

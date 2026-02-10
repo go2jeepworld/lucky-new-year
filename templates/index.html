@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky New Year! - Multiplayer Card Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧧</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="text-center mb-lg">
+            <div class="logo-section">
+                <span class="logo-icon" style="font-size: 64px;">🧧</span>
+                <h1 class="text-red" style="margin-top: var(--spacing-md);">Lucky New Year!</h1>
+                <p class="text-secondary" style="color: var(--text-secondary); font-size: var(--font-size-lg);">
+                    A Cultural Card Game Celebrating Chinese New Year
+                </p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Player Name Input Section -->
+            <section class="card mb-lg" style="max-width: 500px; margin: 0 auto; padding: var(--spacing-2xl);">
+                <h3 class="text-center mb-md">Welcome! 🎉</h3>
+                <div class="form-group">
+                    <label for="playerName" style="display: block; margin-bottom: var(--spacing-sm); font-weight: 600;">
+                        Your Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="playerName" 
+                        class="input" 
+                        placeholder="Enter your name" 
+                        maxlength="20"
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <div class="flex gap-md mt-lg" style="justify-content: center;">
+                    <button id="createRoomBtn" class="btn btn-primary">
+                        <span>🏠</span> Create Room
+                    </button>
+                    <button id="joinRoomBtn" class="btn btn-secondary">
+                        <span>🚪</span> Join Room
+                    </button>
+                </div>
+            </section>
+
+            <!-- Join Room Form (Hidden by default) -->
+            <section id="joinRoomSection" class="card mb-lg hidden" style="max-width: 500px; margin: 0 auto; padding: var(--spacing-2xl); display: none;">
+                <h3 class="text-center mb-md">Join a Room</h3>
+                <div class="form-group">
+                    <label for="roomCode" style="display: block; margin-bottom: var(--spacing-sm); font-weight: 600;">
+                        Room Code
+                    </label>
+                    <input 
+                        type="text" 
+                        id="roomCode" 
+                        class="input" 
+                        placeholder="Enter 5-digit room code (e.g., AB3X9)" 
+                        maxlength="5"
+                        style="text-transform: uppercase; text-align: center; letter-spacing: 4px; font-size: var(--font-size-xl);"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="flex gap-md mt-lg" style="justify-content: center;">
+                    <button id="confirmJoinBtn" class="btn btn-primary">
+                        <span>✓</span> Join
+                    </button>
+                    <button id="cancelJoinBtn" class="btn btn-outline">
+                        Cancel
+                    </button>
+                </div>
+            </section>
+
+            <!-- Card Types Showcase -->
+            <section class="mb-lg">
+                <h3 class="text-center mb-md">🎴 Card Types</h3>
+                <div class="cards-showcase" style="display: flex; gap: var(--spacing-md); overflow-x: auto; padding: var(--spacing-md); justify-content: center; flex-wrap: wrap;">
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🥟</span>
+                        <span class="card-name">Dumpling</span>
+                        <span class="card-effect">+1 Luck Point</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🐼</span>
+                        <span class="card-name">Panda</span>
+                        <span class="card-effect">Peek at hand</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🧧</span>
+                        <span class="card-name">Red Envelope</span>
+                        <span class="card-effect">Draw 2 cards</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🏯</span>
+                        <span class="card-name">Great Wall</span>
+                        <span class="card-effect">Block effect</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🐉</span>
+                        <span class="card-name">Dragon Dance</span>
+                        <span class="card-effect">Quiz for all</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🏮</span>
+                        <span class="card-name">Lantern</span>
+                        <span class="card-effect">Check progress</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">🥢</span>
+                        <span class="card-name">Chopsticks</span>
+                        <span class="card-effect">Swap hands</span>
+                    </div>
+                    <div class="game-card" style="cursor: default;">
+                        <span class="card-icon">❓</span>
+                        <span class="card-name">Culture Quiz</span>
+                        <span class="card-effect">Answer & win</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How to Play -->
+            <section class="card" style="max-width: 800px; margin: 0 auto; padding: var(--spacing-2xl);">
+                <h3 class="text-center mb-md">📖 How to Play<sup style="font-size: 0.6em; margin-left: 2px;"><a href="{{ url_for('static', filename='USER_GUIDE.html') }}" target="_blank" style="color: var(--chinese-red); text-decoration: none; display: inline-block; width: 14px; height: 14px; border: 1px solid var(--chinese-red); border-radius: 50%; text-align: center; line-height: 14px; font-size: 10px; font-weight: bold;">?</a></sup></h3>
+                <div class="rules-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg);">
+                    <div class="rule-item">
+                        <div class="rule-number" style="width: 32px; height: 32px; background: var(--chinese-red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: var(--spacing-sm);">1</div>
+                        <h4>Create or Join</h4>
+                        <p style="color: var(--text-secondary); font-size: var(--font-size-sm);">Create a room or join with a friend's room code</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number" style="width: 32px; height: 32px; background: var(--chinese-red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: var(--spacing-sm);">2</div>
+                        <h4>Collect Cards</h4>
+                        <p style="color: var(--text-secondary); font-size: var(--font-size-sm);">Play cards to gain Luck Points or affect other players</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number" style="width: 32px; height: 32px; background: var(--chinese-red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: var(--spacing-sm);">3</div>
+                        <h4>Answer Quizzes</h4>
+                        <p style="color: var(--text-secondary); font-size: var(--font-size-sm);">Test your knowledge of Chinese culture for bonus points</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-number" style="width: 32px; height: 32px; background: var(--chinese-red); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin-bottom: var(--spacing-sm);">4</div>
+                        <h4>Win the Game</h4>
+                        <p style="color: var(--text-secondary); font-size: var(--font-size-sm);">First to reach 9 Luck Points wins!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-lg" style="padding: var(--spacing-lg); color: var(--text-secondary); font-size: var(--font-size-lg);">
+            <p>🎊 Where Culture Meets Play 🎊</p>
+            <p style="margin-top: var(--spacing-sm);">2-12 Players • Learn Chinese Culture • Have Fun!</p>
+
+        </footer>
+    </div>
+
+    <!-- Error Toast Container -->
+    <div id="toastContainer"></div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>

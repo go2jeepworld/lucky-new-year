@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - Lucky New Year!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧧</text></svg>">
+</head>
+<body>
+    <div class="container" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <div class="text-center">
+            <div style="font-size: 120px; margin-bottom: var(--spacing-lg);">🧧</div>
+            <h1 class="text-red" style="font-size: 72px; margin-bottom: var(--spacing-md);">404</h1>
+            <h2 class="mb-md">Oops! Page Not Found</h2>
+            <p style="color: var(--text-secondary); font-size: var(--font-size-lg); margin-bottom: var(--spacing-xl);">
+                Looks like this red envelope got lost on its way!<br>
+                The page you're looking for doesn't exist.
+            </p>
+            <a href="/" class="btn btn-primary" style="font-size: var(--font-size-lg); padding: var(--spacing-md) var(--spacing-2xl);">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>
