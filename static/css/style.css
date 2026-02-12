@@ -324,6 +324,7 @@ h3 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 100%;
 }
 
 .chat-messages {
@@ -331,6 +332,7 @@ h3 {
   overflow-y: auto;
   padding: var(--spacing-md);
   max-height: 300px;
+  background: var(--bg-white);
 }
 
 .chat-message {
@@ -586,6 +588,35 @@ h3 {
   .btn {
     padding: var(--spacing-sm) var(--spacing-md);
     font-size: var(--font-size-sm);
+  }
+  
+  /* Main Game Area Responsive */
+  main {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Chat Box Responsive */
+  .chat-box {
+    height: 400px !important;
+    margin-top: var(--spacing-lg);
+  }
+  
+  /* Room Code Responsive */
+  .room-code {
+    font-size: var(--font-size-lg) !important;
+    padding: var(--spacing-sm) var(--spacing-md) !important;
+  }
+  
+  /* Header Responsive */
+  header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: var(--spacing-md) !important;
+  }
+  
+  header > div {
+    width: 100% !important;
+    justify-content: space-between !important;
   }
 }
 
