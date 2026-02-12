@@ -14,6 +14,7 @@ let isMyTurn = false;
 let gameStatus = 'waiting';
 let turnTimer = null;
 let timeLeft = 30;
+let previousPlayerCount = 0;
 
 // Card definitions
 const CARDS = {
@@ -88,6 +89,8 @@ function init() {
         console.log('Joined room', data);
         localStorage.setItem('playerSid', data.player.sid);
         handleRoomUpdate(data.room);
+        soundManager.init();
+        soundManager.playRoomCreated();
         showToast('Joined room successfully', 'success');
     });
 
@@ -157,6 +160,12 @@ function tryJoinRoom() {
 // Handle Room Update
 function handleRoomUpdate(room) {
     currentRoom = room;
+    
+    // Check if a new player joined (not on initial load)
+    if (previousPlayerCount > 0 && room.players.length > previousPlayerCount) {
+        soundManager.playPlayerJoined();
+    }
+    previousPlayerCount = room.players.length;
     
     // Find current player
     const mySid = socket.id;
@@ -352,6 +361,11 @@ function handleCardPlayed(data) {
     
     addLogEntry(`${player.name} played ${card.icon} ${card.name}: ${result.message}`);
     
+    // Play sound if player gained luck
+    if (card_type === 'dumpling' || result.message.includes('+1 Luck')) {
+        soundManager.playGainedLuck();
+    }
+    
     // Update turn
     currentRoom.current_player = next_player;
     updateTurnInfo();
@@ -377,6 +391,7 @@ function updateTurnInfo() {
         
         if (isMyTurn) {
             currentTurnName.style.color = 'var(--success)';
+            soundManager.playYourTurn();
             showToast('Your turn!', 'success');
             startTurnTimer();
         } else {
@@ -470,6 +485,13 @@ function handleQuizResult(data) {
     console.log('Handling quiz result:', data);
     const { player_sid, player_name, correct, message, explanation } = data;
     
+    // Play sound based on result
+    if (correct) {
+        soundManager.playGainedLuck();
+    } else {
+        soundManager.playWrongAnswer();
+    }
+    
     // Show result in modal if it's my quiz
     if (player_sid === socket.id) {
         quizResult.style.display = 'block';
@@ -528,6 +550,9 @@ function handleGameEnded(data) {
     stopTurnTimer();
     
     const { winner, players } = data;
+    
+    // Play victory sound
+    soundManager.playVictory();
     
     winnerText.innerHTML = `🏆 <span style="color: var(--gold-dark);">${winner.name}</span> wins with ${winner.luck} Luck Points!`;
     

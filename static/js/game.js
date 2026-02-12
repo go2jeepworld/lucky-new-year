@@ -60,12 +60,16 @@ function init() {
         localStorage.setItem('playerName', playerNameInput.value.trim());
         localStorage.setItem('playerSid', data.player.sid);
         console.log('Redirecting to room:', data.room_code);
+        soundManager.init();
+        soundManager.playRoomCreated();
         window.location.href = `/room/${data.room_code}`;
     });
 
     socket.on('room_joined', (data) => {
         localStorage.setItem('playerName', playerNameInput.value.trim());
         localStorage.setItem('playerSid', data.player.sid);
+        soundManager.init();
+        soundManager.playRoomCreated();
         window.location.href = `/room/${data.room_code}`;
     });
 
